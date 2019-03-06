@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  hacker_news:
+    build:
+      context: .
+    volumes:
+      - ./env_settings.py:/env_settings.py
+    stdin_open: true
+    tty: true
+    ports:
+      - '8000:80'
+    restart: always
+    command: python3 manage.py runserver 0.0.0.0:80
