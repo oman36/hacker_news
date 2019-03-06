@@ -22,7 +22,7 @@ class HackerNewsSaverTestCase(TestCase):
         }
         for item in news_items.values():
             item.save()
-            item.created_at = timezone.now() - datetime.timedelta(days=30)
+            item.created = timezone.now() - datetime.timedelta(days=30)
             item.save()
 
         setattr(saver, '_get_content', lambda *args: self._get_content(flag, """\
@@ -50,12 +50,12 @@ class HackerNewsSaverTestCase(TestCase):
         self.assertEqual(3, len(now_exists), 'News item was not added')
         for item in now_exists:
             if item.title in news_items:
-                self.assertEqual(item.created_at, news_items[item.title].created_at,
-                                 'created_at for existed row was updated')
+                self.assertEqual(item.created, news_items[item.title].created,
+                                 'created for existed row was updated')
             else:
-                self.assertGreaterEqual(item.created_at, now, 'New item has invalid created time')
+                self.assertGreaterEqual(item.created, now, 'New item has invalid created time')
                 self.assertEqual(item.title, 'title2', 'New item has invalid title')
                 self.assertEqual(item.url, 'url2', 'New item has invalid url')
 
         setattr(saver, '_get_content', lambda *args: self._get_content(flag, ''))
-        self.assertRaises(RuntimeError, saver.save, 'Save does not raise error if there is no one news')
+        self.assertRaises(RuntimeError, saver.save)

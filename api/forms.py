@@ -5,8 +5,8 @@ ORDER_CHOICES = (
     ('title', 'title'),
     ('-url', '-url'),
     ('url', 'url'),
-    ('-created_at', '-created_at'),
-    ('created_at', 'created_at'),
+    ('-created', '-created'),
+    ('created', 'created'),
 )
 
 

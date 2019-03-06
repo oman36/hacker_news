@@ -13,7 +13,15 @@ def posts(request):
     data = form.cleaned_data
     offset = 0 if data['offset'] is None else data['offset']
     limit = 5 if data['limit'] is None else data['limit']
-    order = data.get('order') or 'created_at'
+    order = data.get('order') or 'created'
 
     news = News.objects.order_by(order)[offset:offset + limit]
-    return JsonResponse([model_to_dict(m) for m in news], safe=False)
+    dicts = []
+    for item in news:
+        dicts.append({
+            'id': item.id,
+            'title': item.title,
+            'url': item.url,
+            'created': item.created.isoformat(),
+        })
+    return JsonResponse(dicts, safe=False)
