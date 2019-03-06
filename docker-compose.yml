@@ -5,7 +5,7 @@ services:
     build:
       context: .
     volumes:
-      - ./env_settings.py:/env_settings.py
+      - ./env_settings.py:/var/www/hacker_news/env_settings.py
     stdin_open: true
     tty: true
     ports:
