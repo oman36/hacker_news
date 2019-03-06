@@ -25,9 +25,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'bma#!5z8y8-b3lg)nx_2ot8mq%s&^-n!&qkuc4^$h0fa$@ho2c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '0.0.0.0',
+]
 
 
 # Application definition
@@ -125,5 +127,7 @@ STATIC_URL = '/static/'
 HACKER_NEWS_URL = 'https://news.ycombinator.com/'
 HACKER_NEWS_COUNT = 30
 
+if os.path.isfile(os.path.join(BASE_DIR, 'env_settings.py')):
+    from env_settings import *
 if 'test' in sys.argv:
     from .test_settings import *
