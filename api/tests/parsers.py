@@ -1,5 +1,5 @@
 from django.test import TestCase
-from api.parsers import HackerNewsHtmlParser
+from api.parsers import HackerNewsHtmlParser, NewsPair
 
 
 class HackerNewsHtmlParserTestCase(TestCase):
@@ -22,7 +22,7 @@ class HackerNewsHtmlParserTestCase(TestCase):
                 </td>
             </tr>
         </table>""")
-        self.assertEqual(parser.pairs, [('url1', 'title1'), ('url2', 'title2')])
+        self.assertEqual(parser.pairs, [NewsPair('url1', 'title1'), NewsPair('url2', 'title2')])
 
     def test_pairs_fails(self):
         cases = {

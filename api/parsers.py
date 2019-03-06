@@ -1,4 +1,7 @@
+from collections import namedtuple
 from html.parser import HTMLParser
+
+NewsPair = namedtuple('NewsPair', ('url', 'title'))
 
 
 class HackerNewsHtmlParser(HTMLParser):
@@ -38,7 +41,7 @@ class HackerNewsHtmlParser(HTMLParser):
 
     def handle_data(self, data):
         if self._last_url is not None:
-            self.pairs.append((self._last_url, data.strip()))
+            self.pairs.append(NewsPair(self._last_url, data.strip()))
             self._last_url = None
 
 
